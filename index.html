@@ -42,13 +42,19 @@
         </div>
         <!-- timer -->
         <div
+          id="timer"
           style="
             background-color: red;
             height: 100px;
             width: 100px;
             flex-shrink: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
           "
-        ></div>
+        >
+          10
+        </div>
         <!-- enemy health -->
 
         <div style="position: relative; height: 30px; width: 100%">
@@ -66,8 +72,24 @@
           <div style="background-color: yellow; height: 30px"></div>
         </div>
       </div>
+      <div
+        id="displayText"
+        style="
+          position: absolute;
+          color: white;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          display: none;
+        "
+      ></div>
       <canvas></canvas>
     </div>
+    <script src="./src/classess.js"></script>
     <script src="./src/index.js"></script>
   </body>
 </html>
