@@ -14,7 +14,8 @@
 - Animation Sprite `상점`추가
 - `players` 배경의 땅에서 움직이도록 위치 조정
 - 현재까지 구현된 프로젝트
-  <img src="screenshot/mid-result2.png" width="400" height="270"/>
+
+<img src="screenshot/mid-result2.png" width="400" height="270"/>
 
 ### Reference
 
