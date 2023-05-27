@@ -41,6 +41,14 @@ const player = new Fighter({
     x: 0,
     y: 0,
   },
+
+  imageSrc: "./images/samuraiMack/idle.png",
+  framesMax: 8,
+  scale: 2.5,
+  offset: {
+    x: 215,
+    y: 155,
+  },
 });
 
 const enemy = new Fighter({
@@ -90,7 +98,8 @@ function animate() {
   background.update();
   shop.update();
   player.update();
-  enemy.update();
+
+  // enemy.update();
 
   player.velocity.x = 0;
 
@@ -145,6 +154,7 @@ window.addEventListener("keydown", (event) => {
     case "d":
       keys.d.pressed = true;
       player.lastKey = "d";
+      player.setImage("./images/samuraiMack/Run.png");
       break;
     case "a":
       keys.a.pressed = true;
@@ -183,6 +193,7 @@ window.addEventListener("keyup", (event) => {
   switch (event.key) {
     case "d":
       keys.d.pressed = false;
+      player.setImage("./images/samuraiMack/idle.png");
       break;
     case "a":
       keys.a.pressed = false;
