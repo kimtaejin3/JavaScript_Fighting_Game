@@ -21,11 +21,6 @@ class Sprite {
     this.offset = offset;
   }
 
-  setImage(imageSrc) {
-    this.image = new Image();
-    this.image.src = imageSrc;
-  }
-
   draw() {
     c.drawImage(
       this.image,
@@ -67,6 +62,7 @@ class Fighter extends Sprite {
     scale = 1,
     framesMax = 1,
     offset = { x: 0, y: 0 },
+    sprites,
   }) {
     super({
       position,
@@ -97,23 +93,15 @@ class Fighter extends Sprite {
     this.framesCurrent = 0;
     this.framesElapsed = 0;
     this.framesHold = 5;
+    this.sprites = sprites;
+
+    for (const sprite in this.sprites) {
+      this.sprites[sprite].image = new Image();
+      this.sprites[sprite].image.src = this.sprites[sprite].imageSrc;
+    }
+
+    console.log(this.sprites);
   }
-
-  // draw() {
-  //   c.fillStyle = this.color;
-  //   c.fillRect(this.position.x, this.position.y, this.width, this.height);
-
-  //   // attackBox
-  //   if (this.isAttacking) {
-  //     c.fillStyle = "green";
-  //     c.fillRect(
-  //       this.attackBox.position.x,
-  //       this.attackBox.position.y,
-  //       this.attackBox.width,
-  //       this.attackBox.height
-  //     );
-  //   }
-  // }
 
   update() {
     this.draw();
@@ -125,8 +113,9 @@ class Fighter extends Sprite {
     this.isBottom = false;
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;
-    if (this.position.y + this.height + this.velocity.y >= canvas.height - 95) {
+    if (this.position.y + this.height + this.velocity.y >= canvas.height - 96) {
       this.velocity.y = 0;
+      this.position.y = 330;
       this.isBottom = true;
     } else {
       this.velocity.y += gravity;
@@ -138,5 +127,38 @@ class Fighter extends Sprite {
     setTimeout(() => {
       this.isAttacking = false;
     }, 100);
+  }
+
+  switchSprites(sprite) {
+    switch (sprite) {
+      case "idle":
+        if (this.image !== this.sprites.idle.image) {
+          this.image = this.sprites.idle.image;
+          this.framesMax = this.sprites.idle.framesMax;
+          this.framesCurrent = 0;
+        }
+        break;
+      case "run":
+        if (this.image !== this.sprites.run.image) {
+          this.image = this.sprites.run.image;
+          this.framesMax = this.sprites.run.framesMax;
+          this.framesCurrent = 0;
+        }
+        break;
+      case "jump":
+        if (this.image !== this.sprites.jump.image) {
+          this.image = this.sprites.jump.image;
+          this.framesMax = this.sprites.jump.framesMax;
+          this.framesCurrent = 0;
+        }
+        break;
+      case "fall":
+        if (this.image !== this.sprites.fall.image) {
+          this.image = this.sprites.fall.image;
+          this.framesMax = this.sprites.fall.framesMax;
+          this.framesCurrent = 0;
+        }
+        break;
+    }
   }
 }

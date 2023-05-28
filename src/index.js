@@ -6,7 +6,7 @@ canvas.height = 576;
 
 c.fillRect(0, 0, canvas.width, canvas.height);
 
-const gravity = 0.9;
+const gravity = 0.7;
 
 const background = new Sprite({
   position: {
@@ -48,6 +48,25 @@ const player = new Fighter({
   offset: {
     x: 215,
     y: 155,
+  },
+
+  sprites: {
+    idle: {
+      imageSrc: "./images/samuraiMack/idle.png",
+      framesMax: 8,
+    },
+    run: {
+      imageSrc: "./images/samuraiMack/Run.png",
+      framesMax: 8,
+    },
+    jump: {
+      imageSrc: "./images/samuraiMack/Jump.png",
+      framesMax: 2,
+    },
+    fall: {
+      imageSrc: "./images/samuraiMack/Fall.png",
+      framesMax: 2,
+    },
   },
 });
 
@@ -105,8 +124,18 @@ function animate() {
 
   if (keys.d.pressed && player.lastKey === "d") {
     player.velocity.x = 8;
+    player.switchSprites("run");
   } else if (keys.a.pressed && player.lastKey === "a") {
     player.velocity.x = -8;
+    player.switchSprites("run");
+  } else {
+    player.switchSprites("idle");
+  }
+
+  if (player.velocity.y < 0) {
+    player.switchSprites("jump");
+  } else if (player.velocity.y > 0) {
+    player.switchSprites("fall");
   }
 
   enemy.velocity.x = 0;
@@ -154,7 +183,6 @@ window.addEventListener("keydown", (event) => {
     case "d":
       keys.d.pressed = true;
       player.lastKey = "d";
-      player.setImage("./images/samuraiMack/Run.png");
       break;
     case "a":
       keys.a.pressed = true;
@@ -193,7 +221,7 @@ window.addEventListener("keyup", (event) => {
   switch (event.key) {
     case "d":
       keys.d.pressed = false;
-      player.setImage("./images/samuraiMack/idle.png");
+
       break;
     case "a":
       keys.a.pressed = false;
