@@ -67,6 +67,10 @@ const player = new Fighter({
       imageSrc: "./images/samuraiMack/Fall.png",
       framesMax: 2,
     },
+    attack1: {
+      imageSrc: "./images/samuraiMack/Attack1.png",
+      framesMax: 6,
+    },
   },
 });
 
@@ -195,6 +199,7 @@ window.addEventListener("keydown", (event) => {
       break;
 
     case " ":
+      console.log("hi");
       player.attack();
       break;
 
