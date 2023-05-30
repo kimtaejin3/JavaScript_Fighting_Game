@@ -30,6 +30,7 @@ class Sprite {
       this.image.height,
       this.position.x - this.offset.x,
       this.position.y - this.offset.y,
+
       (this.image.width / this.framesMax) * this.scale,
       this.image.height * this.scale
     );
@@ -83,7 +84,7 @@ class Fighter extends Sprite {
         y: this.position.y,
       },
       offset,
-      width: 100,
+      width: 180,
       height: 50,
     };
     this.width = 50;
@@ -103,11 +104,24 @@ class Fighter extends Sprite {
     console.log(this.sprites);
   }
 
+  // showAttackBox() {
+  //   c.fillStyle = "royalblue";
+  //   c.fillRect(
+  //     this.attackBox.position.x,
+  //     this.attackBox.position.y,
+  //     this.attackBox.width,
+  //     this.attackBox.height
+  //   );
+  // }
+
   update() {
     this.draw();
     this.animateFrames();
+    // this.showAttackBox();
+    this.attackBox.position.x = this.position.x;
 
     this.attackBox.position.x = this.position.x + this.attackBox.offset.x;
+    // this.attackBox.position.x -= 136;
     this.attackBox.position.y = this.position.y;
 
     this.isBottom = false;
@@ -131,7 +145,6 @@ class Fighter extends Sprite {
   }
 
   switchSprites(sprite) {
-    console.log("ho");
     if (
       this.image === this.sprites.attack1.image &&
       this.framesCurrent < this.sprites.attack1.framesMax - 1
