@@ -17,6 +17,11 @@
 
 <img src="screenshot/mid-result2.png" width="400" height="270"/>
 
+### 2023-05-30
+
+- `enemy` Sprite 추가
+- `공격` `점프` `떨어짐` Sprite Animation 추가
+
 ### Reference
 
 - 본 프로젝트는 클론 프로젝트이지만 제가 필요하다고 생각한 몇몇 기능을 추가하였습니다
