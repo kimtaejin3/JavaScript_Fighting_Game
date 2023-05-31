@@ -42,7 +42,7 @@ const player = new Fighter({
     y: 0,
   },
 
-  imageSrc: "./images/samuraiMack/idle.png",
+  imageSrc: "./images/samuraiMack/Idle.png",
   framesMax: 8,
   scale: 2.5,
   offset: {
@@ -52,7 +52,7 @@ const player = new Fighter({
 
   sprites: {
     idle: {
-      imageSrc: "./images/samuraiMack/idle.png",
+      imageSrc: "./images/samuraiMack/Idle.png",
       framesMax: 8,
     },
     run: {
@@ -103,7 +103,7 @@ const enemy = new Fighter({
   },
 
   color: "red",
-  imageSrc: "./images/kenji/idle.png",
+  imageSrc: "./images/kenji/Idle.png",
   framesMax: 4,
   scale: 2.5,
   offset: {
@@ -113,7 +113,7 @@ const enemy = new Fighter({
 
   sprites: {
     idle: {
-      imageSrc: "./images/kenji/idle.png",
+      imageSrc: "./images/kenji/Idle.png",
       framesMax: 4,
     },
     run: {
