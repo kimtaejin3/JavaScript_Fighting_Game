@@ -71,6 +71,23 @@ const player = new Fighter({
       imageSrc: "./images/samuraiMack/Attack1.png",
       framesMax: 6,
     },
+    takeHit: {
+      imageSrc: "./images/samuraiMack/Take hit - white silhouette.png",
+      framesMax: 4,
+    },
+    death: {
+      imageSrc: "./images/samuraiMack/Death.png",
+      framesMax: 6,
+    },
+  },
+
+  attackBox: {
+    offset: {
+      x: 100,
+      y: 50,
+    },
+    width: 160,
+    height: 50,
   },
 });
 
@@ -83,11 +100,6 @@ const enemy = new Fighter({
   velocity: {
     x: 0,
     y: 20,
-  },
-
-  offset: {
-    x: -50,
-    y: 0,
   },
 
   color: "red",
@@ -120,6 +132,23 @@ const enemy = new Fighter({
       imageSrc: "./images/kenji/Attack1.png",
       framesMax: 4,
     },
+    takeHit: {
+      imageSrc: "./images/kenji/Take hit.png",
+      framesMax: 3,
+    },
+    death: {
+      imageSrc: "./images/kenji/Death.png",
+      framesMax: 7,
+    },
+  },
+
+  attackBox: {
+    offset: {
+      x: -180,
+      y: 50,
+    },
+    width: 160,
+    height: 50,
   },
 });
 
@@ -150,6 +179,8 @@ function animate() {
 
   background.update();
   shop.update();
+  c.fillStyle = "rgba(255,255,255,0.1)";
+  c.fillRect(0, 0, canvas.width, canvas.height);
   player.update();
   enemy.update();
 
@@ -193,10 +224,18 @@ function animate() {
       rectangle1: player,
       rectangle2: enemy,
     }) &&
-    player.isAttacking
+    player.isAttacking &&
+    player.framesCurrent === 4
   ) {
-    enemy.health -= 20;
-    document.querySelector("#enemyHealth").style.width = `${enemy.health}%`;
+    enemy.takeHit();
+    // player.isAttacking = false;
+    // document.querySelector("#enemyHealth").style.width = `${enemy.health}%`;
+    gsap.to("#enemyHealth", {
+      width: enemy.health + "%",
+    });
+  }
+
+  if (player.isAttacking && player.framesCurrent === 4) {
     player.isAttacking = false;
   }
 
@@ -205,10 +244,13 @@ function animate() {
       rectangle1: enemy,
       rectangle2: player,
     }) &&
-    enemy.isAttacking
+    enemy.isAttacking &&
+    enemy.framesCurrent === 2
   ) {
-    player.health -= 20;
-    document.querySelector("#playerHealth").style.width = `${player.health}%`;
+    player.takeHit();
+    gsap.to("#playerHealth", {
+      width: player.health + "%",
+    });
     enemy.isAttacking = false;
   }
 
@@ -221,41 +263,47 @@ function animate() {
 animate();
 
 window.addEventListener("keydown", (event) => {
-  switch (event.key) {
-    case "d":
-      keys.d.pressed = true;
-      player.lastKey = "d";
-      break;
-    case "a":
-      keys.a.pressed = true;
-      player.lastKey = "a";
-      break;
-    case "w":
-      if (player.isBottom) {
-        player.velocity.y -= 18;
-      }
-      break;
+  if (!player.dead) {
+    switch (event.key) {
+      case "d":
+        keys.d.pressed = true;
+        player.lastKey = "d";
+        break;
+      case "a":
+        keys.a.pressed = true;
+        player.lastKey = "a";
+        break;
+      case "w":
+        if (player.isBottom) {
+          player.velocity.y -= 18;
+        }
+        break;
 
-    case " ":
-      player.attack();
-      break;
+      case " ":
+        player.attack();
+        break;
+    }
+  }
 
-    case "ArrowRight":
-      keys.arrowRight.pressed = true;
-      enemy.lastKey = "ArrowRight";
-      break;
-    case "ArrowLeft":
-      keys.arrowLeft.pressed = true;
-      enemy.lastKey = "ArrowLeft";
-      break;
-    case "ArrowUp":
-      if (enemy.isBottom) {
-        enemy.velocity.y -= 18;
-      }
-      break;
+  if (!enemy.dead) {
+    switch (event.key) {
+      case "ArrowRight":
+        keys.arrowRight.pressed = true;
+        enemy.lastKey = "ArrowRight";
+        break;
+      case "ArrowLeft":
+        keys.arrowLeft.pressed = true;
+        enemy.lastKey = "ArrowLeft";
+        break;
+      case "ArrowUp":
+        if (enemy.isBottom) {
+          enemy.velocity.y -= 18;
+        }
+        break;
 
-    case "ArrowDown":
-      enemy.attack();
+      case "ArrowDown":
+        enemy.attack();
+    }
   }
 });
 
