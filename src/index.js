@@ -28,7 +28,7 @@ const shop = new Sprite({
 
 const player = new Fighter({
   position: {
-    x: 0,
+    x: 190,
     y: 0,
   },
 
@@ -150,6 +150,7 @@ const enemy = new Fighter({
     width: 160,
     height: 50,
   },
+  direction: 1,
 });
 
 const keys = {
@@ -188,9 +189,11 @@ function animate() {
 
   if (keys.d.pressed && player.lastKey === "d") {
     player.velocity.x = 8;
+    player.flip = 0;
     player.switchSprites("run");
   } else if (keys.a.pressed && player.lastKey === "a") {
     player.velocity.x = -8;
+    player.flip = 1;
     player.switchSprites("run");
   } else {
     player.switchSprites("idle");
@@ -204,10 +207,12 @@ function animate() {
 
   enemy.velocity.x = 0;
   if (keys.arrowLeft.pressed && enemy.lastKey === "ArrowLeft") {
+    enemy.flip = 0;
     enemy.velocity.x = -8;
     enemy.switchSprites("run");
   } else if (keys.arrowRight.pressed && enemy.lastKey === "ArrowRight") {
     enemy.velocity.x = 8;
+    enemy.flip = 1;
     enemy.switchSprites("run");
   } else {
     enemy.switchSprites("idle");
