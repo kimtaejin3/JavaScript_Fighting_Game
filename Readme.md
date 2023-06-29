@@ -41,8 +41,3 @@
 
 - `lecture`에는 없는 `캐릭터 flip`기능 추가
 - `캐릭터 flip`시에 발생하는 `공격 방향 변경` 문제 해결
-
-### Reference
-
-- 본 프로젝트는 클론 프로젝트이지만 제가 필요하다고 생각한 몇몇 기능을 추가하였습니다
-  [lecture link](https://chriscourses.com/courses/fighting-game/videos/project-setup)
